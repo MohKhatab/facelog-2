@@ -1,0 +1,314 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-50: #f2f1ff;
+  --color-primary-100: #e6e5ff;
+  --color-primary-200: #d1cfff;
+  --color-primary-300: #aea9ff;
+  --color-primary-400: #8678ff;
+  --color-primary-500: #6042ff;
+  --color-primary-600: #4c1cff;
+  --color-primary-700: #4717f7;
+  --color-primary-800: #3208cf;
+  --color-primary-900: #2c09a9;
+  --color-primary-950: #160273;
+
+  --color-accent-50: #fdf4ff;
+  --color-accent-100: #f9e9fe;
+  --color-accent-200: #f2d1fd;
+  --color-accent-300: #ebadfa;
+  --color-accent-400: #e07cf6;
+  --color-accent-500: #cf4bea;
+  --color-accent-600: #bb2fd4;
+  --color-accent-700: #9920ab;
+  --color-accent-800: #7e1c8c;
+  --color-accent-900: #6a1c73;
+  --color-accent-950: #45064c;
+
+  --color-secondary-50: #f5f5f9;
+  --color-secondary-100: #e9e8f1;
+  --color-secondary-200: #d7d6e7;
+  --color-secondary-300: #bab9d7;
+  --color-secondary-400: #9997c3;
+  --color-secondary-500: #857eb3;
+  --color-secondary-600: #766ca4;
+  --color-secondary-700: #6d6095;
+  --color-secondary-800: #665a87;
+  --color-secondary-900: #4c4563;
+  --color-secondary-950: #322d3e;
+
+  --color-background-50: #eff0fe;
+  --color-background-100: #e4e3fc;
+  --color-background-200: #cdccf9;
+  --color-background-300: #b1adf4;
+  --color-background-400: #988bee;
+  --color-background-500: #866fe5;
+  --color-background-600: #7854d7;
+  --color-background-700: #6945bd;
+  --color-background-800: #553a99;
+  --color-background-900: #47357a;
+  --color-background-950: #0f0b19;
+
+  --color-grayscale-50: #f6f6f6;
+  --color-grayscale-100: #e7e7e7;
+  --color-grayscale-200: #d1d1d1;
+  --color-grayscale-300: #b0b0b0;
+  --color-grayscale-400: #888888;
+  --color-grayscale-500: #6d6d6d;
+  --color-grayscale-600: #5d5d5d;
+  --color-grayscale-700: #4f4f4f;
+  --color-grayscale-800: #454545;
+  --color-grayscale-900: #3d3d3d;
+  --color-grayscale-950: #121212;
+
+  --color-text-50: #f7f7f7;
+  --color-text-100: #ededed;
+  --color-text-200: #e0e0e0;
+  --color-text-300: #c8c8c8;
+  --color-text-400: #adadad;
+  --color-text-500: #999999;
+  --color-text-600: #888888;
+  --color-text-700: #7b7b7b;
+  --color-text-800: #676767;
+  --color-text-900: #545454;
+  --color-text-950: #363636;
+}
+
+#background-sphere {
+  border-radius: 100000px;
+  background: radial-gradient(
+    104.16% 92.86% at 55.71% 57.67%,
+    var(--color-background-950, #0f0b19) 34.01%,
+    var(--color-background-900, #47357a) 100%
+  );
+  box-shadow: 0px 0px 250px 10px rgba(187, 47, 212, 0.25);
+}
+
+.glass {
+  @apply bg-background-950/20 backdrop-blur-lg rounded-xl border border-background-800/10 shadow-background-800/10 shadow-lg;
+}
+
+/* Base editor styles */
+.tiptap {
+  height: 400px;
+  overflow-y: scroll;
+  padding: 1rem;
+  outline: none;
+  border: 1px solid rgba(242, 241, 255, 0.29);
+  border-radius: 8px;
+  background-color: color-mix(
+    in oklab,
+    var(--color-primary-100) 5%,
+    transparent
+  );
+  transition: all 150ms;
+}
+
+.tiptap::-webkit-scrollbar {
+  width: 8px;
+}
+
+.tiptap::-webkit-scrollbar-track {
+  width: 16px;
+}
+
+.tiptap::-webkit-scrollbar-thumb {
+  background: #d04bea5b;
+  border-radius: 8px;
+  cursor: grab;
+}
+
+.tiptap::-webkit-scrollbar-thumb:hover {
+  background: #d04beaa6;
+}
+
+.tiptap::-webkit-scrollbar-thumb:active {
+  cursor: grabbing;
+}
+
+.tiptap:focus {
+  border: 1px solid rgba(242, 241, 255, 0.664);
+  background-color: color-mix(
+    in oklab,
+    var(--color-primary-100) /* #e6e5ff */ 10%,
+    transparent
+  );
+}
+
+.tiptap:first-child {
+  margin-top: 0;
+}
+
+/* Paragraph styles */
+.tiptap p {
+  margin: 0.75rem 0;
+  line-height: 1;
+}
+
+/* Heading styles */
+.tiptap h1,
+.tiptap h2,
+.tiptap h3,
+.tiptap h4,
+.tiptap h5,
+.tiptap h6 {
+  line-height: 1.5;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.tiptap h1 {
+  font-size: 1.8rem;
+}
+
+.tiptap h2 {
+  font-size: 1.5rem;
+}
+
+.tiptap h3 {
+  font-size: 1.3rem;
+}
+
+.tiptap h4 {
+  font-size: 1.1rem;
+}
+
+.tiptap h5 {
+  font-size: 1rem;
+}
+
+.tiptap h6 {
+  font-size: 0.9rem;
+}
+
+/* List styles */
+.tiptap ul,
+.tiptap ol {
+  padding: 0 1rem;
+  margin: 1rem 0 1rem 0.5rem;
+}
+
+.tiptap ul {
+  list-style-type: disc;
+}
+
+.tiptap ol {
+  list-style-type: decimal;
+}
+
+.tiptap li {
+  margin: 0.5rem 0;
+}
+
+.tiptap li p {
+  margin: 0.25rem 0;
+}
+
+/* Text formatting */
+.tiptap strong {
+  font-weight: bold;
+}
+
+.tiptap em {
+  font-style: italic;
+}
+
+.tiptap strike {
+  text-decoration: line-through;
+}
+
+/* Code styles */
+.tiptap code {
+  background-color: rgba(175, 184, 193, 0.2);
+  border-radius: 0.25rem;
+  color: var(--color-accent-400);
+  font-size: 0.85rem;
+  padding: 0.2em 0.4em;
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas,
+    Liberation Mono, monospace;
+}
+
+.tiptap pre {
+  background: #1e1e1e;
+  border-radius: 0.5rem;
+  color: #f8f8f2;
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas,
+    Liberation Mono, monospace;
+  margin: 1.5rem 0;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.tiptap pre code {
+  background: none;
+  color: inherit;
+  font-size: 0.9rem;
+  padding: 0;
+}
+
+/* Blockquote */
+.tiptap blockquote {
+  border-left: 3px solid var(--color-primary-500);
+  margin: 1.5rem 0;
+  padding-left: 1rem;
+  color: var(--color-primary-300);
+  font-style: italic;
+}
+
+/* Horizontal rule */
+.tiptap hr {
+  border: none;
+  border-top: 1px solid var(--color-text-300);
+  margin: 2rem 0;
+}
+
+/* Link */
+.tiptap a {
+  color: #3b82f6;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Task list */
+.tiptap ul[data-type="taskList"] {
+  list-style: none;
+  padding: 0;
+}
+
+.tiptap ul[data-type="taskList"] li {
+  display: flex;
+  align-items: center;
+}
+
+.tiptap ul[data-type="taskList"] li > label {
+  flex: 0 0 auto;
+  margin-right: 0.5rem;
+}
+
+.tiptap ul[data-type="taskList"] li > div {
+  flex: 1 1 auto;
+}
+
+/* Table styles (if you use tables) */
+.tiptap table {
+  border-collapse: collapse;
+  margin: 1rem 0;
+  width: 100%;
+}
+
+.tiptap th,
+.tiptap td {
+  border: 1px solid #ddd;
+  padding: 0.5rem 1rem;
+}
+
+.tiptap th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+  text-align: left;
+}
+
+:root:has(.no-doc-scroll) {
+  overflow: hidden;
+}
