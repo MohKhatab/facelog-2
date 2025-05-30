@@ -15,11 +15,11 @@ export default defineConfig({
     //     rewrite: (path) => path.replace(/^\/api/, ""),
     //   },
     // },
-    https: {
-      key: fs.readFileSync(path.resolve(__dirname, "localhost-key.pem")),
-      cert: fs.readFileSync(path.resolve(__dirname, "localhost.pem")),
-    },
-    port: 5173,
+    // https: {
+    //   key: fs.readFileSync(path.resolve(__dirname, "localhost-key.pem")),
+    //   cert: fs.readFileSync(path.resolve(__dirname, "localhost.pem")),
+    // },
+    // port: 5173,
   },
   plugins: [tailwindcss(), react()],
 });
