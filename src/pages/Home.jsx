@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import Button from "../components/common/Button";
 import { MdAdd } from "react-icons/md";
 import { Link } from "react-router";
+import PostSkeleton from "../components/post/PostSkeleton";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -14,11 +15,26 @@ export default function Home() {
     dispatch(fetchPosts());
   }, [dispatch]);
 
-  if (postsStore.loading)
+  if (postsStore.loading && !postsStore.posts)
     return (
-      <div className="grid grid-cols-12">
-        {" "}
-        <h1 className="text-3xl text-center my-8 col-span-full">Loading</h1>
+      <div className="grid grid-cols-12 gap-5 lg:gap-10 my-8 px-5 lg:px-10 xl:px-32 relative">
+        <div className="hidden lg:block col-span-3">
+          <div className="glass p-6 text-center font-semibold text-lg">
+            Work In Progress
+          </div>
+        </div>
+
+        <div className="col-span-full lg:col-span-9 xl:col-span-6 flex gap-8 flex-col ">
+          <PostSkeleton></PostSkeleton>
+          <PostSkeleton></PostSkeleton>
+          <PostSkeleton></PostSkeleton>
+        </div>
+
+        <div className="hidden xl:block w-full col-span-3">
+          <div className="glass p-6 text-center font-semibold text-lg">
+            Work In Progress
+          </div>
+        </div>
       </div>
     );
 
@@ -27,7 +43,9 @@ export default function Home() {
       <>
         <div className="grid grid-cols-12 gap-5 lg:gap-10 my-8 px-5 lg:px-10 xl:px-32 relative">
           <div className="hidden lg:block col-span-3">
-            <div className="glass"></div>
+            <div className="glass p-6 text-center font-semibold text-lg">
+              Work In Progress
+            </div>
           </div>
           <div className="col-span-full lg:col-span-9 xl:col-span-6 flex gap-8 flex-col ">
             {postsStore.posts.map((post) => (
@@ -35,10 +53,12 @@ export default function Home() {
             ))}
           </div>
           <div className="hidden xl:block w-full col-span-3">
-            <div className="glass"></div>
+            <div className="glass p-6 text-center font-semibold text-lg">
+              Work In Progress
+            </div>
           </div>
           <Link
-            to="post"
+            to="post/new"
             className="fixed bottom-5 right-5 lg:bottom-8 lg:right-8 w-16"
           >
             <Button leftIcon={<MdAdd className="text-3xl"></MdAdd>}></Button>

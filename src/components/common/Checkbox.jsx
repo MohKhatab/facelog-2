@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Checkbox() {
+export default function Checkbox({ checkHandler, checkValue }) {
   return (
     <div className="inline-flex items-center">
       <label
@@ -11,6 +11,8 @@ export default function Checkbox() {
         <input
           id="ripple-on"
           type="checkbox"
+          checked={checkValue}
+          onChange={checkHandler}
           className="peer relative h-5 w-5 cursor-pointer appearance-none rounded border border-background-300 shadow hover:shadow-md transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-9 before:w-9 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-primary-500 before:opacity-0 before:transition-opacity checked:border-primary-500 checked:bg-primary-500 checked:before:bg-primary-400 hover:before:opacity-10"
         />
         <span className="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">

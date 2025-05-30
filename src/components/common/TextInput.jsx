@@ -1,14 +1,9 @@
 import { useField } from "formik";
-import React from "react";
-import {
-  MdEmail,
-  MdError,
-  MdIncompleteCircle,
-  MdInfo,
-  MdWarning,
-} from "react-icons/md";
+import React, { useState } from "react";
+import { MdError, MdVisibilityOff, MdVisibility } from "react-icons/md";
 
-export default function TextInput({ icon, ...props }) {
+export default function TextInput({ icon, initialType, ...props }) {
+  const [inputType, setInputType] = useState(initialType);
   const [field, meta] = useField(props);
   return (
     <div className="relative">
@@ -19,13 +14,26 @@ export default function TextInput({ icon, ...props }) {
           <div className="w-[1px] h-8 bg-primary-100/20 absolute focus peer-focus:bg-primary-100/70 left-10"></div>
         )}
         <input
-          type="text"
+          type={inputType}
           {...field}
           {...props}
           className={` h-full w-full ${
             icon ? "pl-11" : "pl-2"
           } text-lg peer focus:outline-0`}
         />
+
+        {initialType === "password" &&
+          (inputType === "password" ? (
+            <MdVisibility
+              className="absolute right-4 text-primary-500 text-2xl cursor-pointer"
+              onClick={() => setInputType("text")}
+            ></MdVisibility>
+          ) : (
+            <MdVisibilityOff
+              className="absolute right-4 text-primary-500 text-2xl cursor-pointer"
+              onClick={() => setInputType("password")}
+            ></MdVisibilityOff>
+          ))}
       </div>
 
       <span

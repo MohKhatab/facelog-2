@@ -5,8 +5,10 @@ import backendUrl from "../../backendUrl";
 const initialState = {
   token: null,
   isLoggedIn: false,
+  userCreated: false,
   loading: false,
   error: null,
+  authChecked: false,
 };
 
 export const loginUser = createAsyncThunk(
@@ -17,11 +19,31 @@ export const loginUser = createAsyncThunk(
         backendUrl + `/auth/login`,
         loginCredentials
       );
+      const token = response.data.token;
+      const arrayToken = token.split(".");
+      const tokenPayload = JSON.parse(atob(arrayToken[1]));
 
-      localStorage.setItem("token", response.data.token);
+      console.log(tokenPayload);
+
+      localStorage.setItem("token", token);
+      localStorage.setItem("userId", tokenPayload.sub);
+      localStorage.setItem("firstName", tokenPayload.firstName);
+      localStorage.setItem("lastName", tokenPayload.lastName);
       return response.data.token;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const createUser = createAsyncThunk(
+  "createUser",
+  async (userData, thunkAPI) => {
+    try {
+      const user = await axios.post(backendUrl + "/users", userData);
+      return user;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
     }
   }
 );
@@ -50,10 +72,22 @@ export const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       localStorage.removeItem("token");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("firstName");
+      localStorage.removeItem("lastName");
       state.token = null;
       state.loading = false;
       state.error = null;
       state.isLoggedIn = false;
+    },
+    resetUserCreated: (state) => {
+      state.userCreated = false;
+    },
+    clearAuthError: (state) => {
+      state.error = null;
+    },
+    markAuthAsChecked: (state) => {
+      state.authChecked = true;
     },
   },
   extraReducers: (builder) => {
@@ -88,18 +122,37 @@ export const authSlice = createSlice({
         state.token = null;
         state.token = null;
       }
-
+      state.authChecked = true;
       state.loading = false;
     });
 
     builder.addCase(tokenIsValid.rejected, (state, action) => {
+      state.authChecked = true;
       console.log("AUTH ERROR");
       console.error(action.payload);
       state.loading = false;
     });
+
+    builder.addCase(createUser.pending, (state) => {
+      state.loading = true;
+    });
+
+    builder.addCase(createUser.fulfilled, (state) => {
+      state.loading = false;
+      state.userCreated = true;
+    });
+
+    builder.addCase(createUser.rejected, (state, action) => {
+      state.loading = false;
+      console.log("fired");
+      console.log("CREATE USER ERROR");
+      console.log(action.payload);
+      state.error = action.payload;
+    });
   },
 });
 
-export const { logout } = authSlice.actions;
+export const { logout, resetUserCreated, clearAuthError, markAuthAsChecked } =
+  authSlice.actions;
 
 export default authSlice.reducer;

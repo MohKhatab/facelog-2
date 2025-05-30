@@ -9,7 +9,8 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://facelog-nest.vercel.app",
+        // target: "https://facelog-nest.vercel.app",
+        target: "http://localhost:8001",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },

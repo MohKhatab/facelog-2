@@ -169,9 +169,7 @@ const extensions = [
   }),
 ];
 
-const content = ``;
-
-const TipTap = () => {
+const TipTap = ({ setPostContent, content }) => {
   return (
     <div className="glass flex gap-3 flex-col p-6">
       <label className="pb-1 text-xl md:text-2xl font-semibold">Content</label>
@@ -181,6 +179,9 @@ const TipTap = () => {
         extensions={extensions}
         content={content}
         editorProps={{ attributes: { class: "" } }}
+        onUpdate={({ editor }) => {
+          setPostContent(editor.getJSON());
+        }}
       ></EditorProvider>
     </div>
   );

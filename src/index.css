@@ -312,3 +312,121 @@
 :root:has(.no-doc-scroll) {
   overflow: hidden;
 }
+
+.rich-text {
+  @apply p-4;
+
+  & > *:first-child {
+    @apply mt-0;
+  }
+
+  p {
+    @apply my-3 leading-none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply mt-6 mb-3 font-semibold leading-[1.5];
+  }
+  h1 {
+    @apply text-[1.8rem];
+  }
+  h2 {
+    @apply text-2xl;
+  }
+  h3 {
+    @apply text-[1.3rem];
+  }
+  h4 {
+    @apply text-[1.1rem];
+  }
+  h5 {
+    @apply text-base;
+  }
+  h6 {
+    @apply text-[0.9rem];
+  }
+
+  ul,
+  ol {
+    @apply my-4 ml-2 pl-4;
+  }
+  ul {
+    @apply list-disc;
+  }
+  ol {
+    @apply list-decimal;
+  }
+
+  li {
+    @apply my-2;
+  }
+  li p {
+    @apply my-1;
+  }
+
+  strong {
+    @apply font-bold;
+  }
+  em {
+    @apply italic;
+  }
+  strike,
+  s {
+    @apply line-through;
+  }
+
+  code {
+    @apply font-mono bg-gray-400/20 text-[var(--color-accent-400)] rounded px-[0.4em] py-[0.2em] text-[0.85rem];
+  }
+
+  pre {
+    @apply font-mono bg-[#1e1e1e] text-[#f8f8f2] rounded-md my-6 p-4 overflow-x-auto;
+  }
+  pre code {
+    @apply bg-transparent text-inherit p-0 text-[0.9rem] normal-case;
+  }
+
+  blockquote {
+    @apply border-l-[3px] border-[var(--color-primary-500)] text-[var(--color-primary-300)] my-6 pl-4 italic;
+  }
+
+  hr {
+    @apply border-t border-[var(--color-text-300)] my-8;
+  }
+
+  a {
+    @apply text-blue-600 underline cursor-pointer;
+  }
+
+  ul[data-type="taskList"] {
+    @apply list-none p-0;
+  }
+  ul[data-type="taskList"] li {
+    @apply flex items-center my-2;
+  }
+  ul[data-type="taskList"] li > label {
+    @apply flex-none mr-2 cursor-pointer;
+  }
+  ul[data-type="taskList"] li > div {
+    @apply flex-1;
+  }
+  ul[data-type="taskList"] li > div p {
+    @apply my-0;
+  }
+
+  table {
+    @apply border-collapse my-4 w-full;
+  }
+  th,
+  td {
+    @apply border border-gray-300 py-2 px-4;
+  }
+  th {
+    @apply bg-gray-100 font-bold text-left;
+  }
+}
