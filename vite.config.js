@@ -10,16 +10,17 @@ export default defineConfig({
     proxy: {
       "/api": {
         target: "https://facelog-nest.vercel.app",
-        // target: "http://localhost:8001",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
+
+        headers: {
+          "Access-Control-Allow-Origin": "https://facelog-2.vercel.app",
+          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Authorization",
+          "Access-Control-Allow-Credentials": "true",
+        },
       },
     },
-    // https: {
-    //   key: fs.readFileSync(path.resolve(__dirname, "localhost-key.pem")),
-    //   cert: fs.readFileSync(path.resolve(__dirname, "localhost.pem")),
-    // },
-    // port: 5173,
   },
   plugins: [tailwindcss(), react()],
 });
