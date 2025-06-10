@@ -18,8 +18,8 @@ export default function Signup() {
   }, [authData.userCreated, navigate]);
 
   return (
-    <div className=" px-5 md:px-12 lg:px-22 xl:px-44 gap-10 min-h-[100svh] w-screen flex flex-col justify-between py-16 md:py-20 z-50">
-      <div className="flex mx-auto justify-center">
+    <div className=" px-5 md:px-12 lg:px-22 xl:px-44 gap-10 min-h-[100svh] w-full flex flex-col justify-between py-16 md:py-20 z-50">
+      <div className="flex mx-auto justify-center md:w-full w-[80%]">
         <Logo></Logo>
       </div>
 

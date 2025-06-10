@@ -16,6 +16,7 @@ import DefaultLayout from "./layouts/DefaultLayout";
 import Signup from "./pages/Signup";
 import { resetPostSaved } from "./redux/features/posts/postsSlice";
 import Logo from "./components/common/Logo";
+import PostDetails from "./pages/PostDetails";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -65,6 +66,7 @@ export default function App() {
           <Route element={<DefaultLayout />}>
             <Route path="/" element={<Home />} />
             <Route path="/post/:id" element={<AddPost />} />
+            <Route path="/details/:id" element={<PostDetails />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Route>

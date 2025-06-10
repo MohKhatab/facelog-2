@@ -6,7 +6,12 @@ export const fetchPosts = createAsyncThunk(
   "fetchPosts",
   async (_, thunkAPI) => {
     try {
-      const response = await axios.get(backendUrl + "/posts");
+      const token = localStorage.getItem("token");
+      const response = await axios.get(backendUrl + "/posts", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return response.data;
     } catch (err) {
       thunkAPI.rejectWithValue(err.response.data);
@@ -56,6 +61,7 @@ export const fetchSinglePost = createAsyncThunk(
   "fetchSinglePost",
   async (postId, thunkAPI) => {
     try {
+      console.log("fetching single post");
       const response = await axios.get(backendUrl + `/posts/${postId}`);
       return response.data;
     } catch (error) {
@@ -69,6 +75,44 @@ export const deletePost = createAsyncThunk(
   async (postId, thunkAPI) => {
     try {
       await axios.delete(backendUrl + "/posts/" + postId);
+      return postId;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const addInteraction = createAsyncThunk(
+  "addInteraction",
+  async ({ postId, token }, thunkAPI) => {
+    try {
+      await axios.post(
+        backendUrl + `/posts/${postId}/dislike`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      return postId;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const removeInteraction = createAsyncThunk(
+  "removeInteraction",
+  async ({ postId, token }, thunkAPI) => {
+    try {
+      await axios.delete(backendUrl + `/posts/${postId}/dislike`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
       return postId;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -125,7 +169,7 @@ export const postsSlice = createSlice({
       state.loading = true;
     });
 
-    builder.addCase(updatePost.fulfilled, (state, action) => {
+    builder.addCase(updatePost.fulfilled, (state) => {
       state.loading = false;
       state.postSaved = true;
     });
@@ -168,6 +212,33 @@ export const postsSlice = createSlice({
       state.loading = false;
       console.log("DELETE POST ERROR");
       console.log(action.payload);
+    });
+    //#endregion
+
+    //#region Interactions
+    builder.addCase(addInteraction.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(removeInteraction.pending, (state) => {
+      state.loading = true;
+    });
+
+    builder.addCase(addInteraction.fulfilled, (state) => {
+      state.loading = false;
+    });
+    builder.addCase(removeInteraction.fulfilled, (state) => {
+      state.loading = false;
+    });
+
+    builder.addCase(addInteraction.rejected, (state, action) => {
+      console.log("ADD INTERACTION ERROR");
+      console.log(action.payload);
+      state.loading = false;
+    });
+    builder.addCase(removeInteraction.rejected, (state, action) => {
+      console.log("REMOVE INTERACTION ERROR");
+      console.log(action.payload);
+      state.loading = false;
     });
     //#endregion
   },
